@@ -29,35 +29,32 @@
 
 在将代码部署到云端前，我们需要在本地进行简单的修改。
 
-#### 1. 修改 UUID 与路径（防盗用）
+#### 修改 UUID 与路径（防盗用）
 使用 VS Code 或文本编辑器打开项目中的 `index.js`，修改以下两处：
 * **`uuid`** (约第13行)：替换为您自己的 UUID（例如 `884931a7-0245-42df-a337-4d43685e13d1`，建议自行生成新的）。
 * **`wsPath`** (约第14行)：默认是 `/vmess`，建议改成更隐蔽的路径，如 `/my-secret-path`。
-
-#### 2. 配置启动命令
-打开项目中的 `package.json`，确保将其 `scripts.start` 命令修改为执行 shell 脚本，以便自动下载 Xray 内核：
-```json
-{
-  "name": "codered-vmess",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "bash cr-run.sh"
-  }
-}
-```
 
 ---
 
 ### 三、本地 CLI 工具安装与一键部署
 
-#### 1. 安装 CodeRed CLI 工具 (以 macOS 为例)
-在您的 Mac 本地终端 (Terminal) 中，依次运行以下三行命令来下载并安装 `cr` 工具：
+#### 1. 安装 CodeRed CLI 工具
+
+**macOS / Linux 系统:**
+在本地终端 (Terminal) 中，依次运行以下三行命令来下载并安装 `cr` 工具：
 ```bash
 curl -L https://www.codered.cloud/cli/cr-macos -o cr
 chmod +x cr
 sudo mv cr /usr/local/bin/cr
 ```
-*(注意：第三行命令使用了 `sudo`，执行时会要求您输入 Mac 的开机密码。输入密码时屏幕不会显示字符，盲打输入完直接回车即可。)*
+*(注意：第三行命令使用了 `sudo`，执行时会要求输入 Mac 的开机密码，密码不会显示，输入完直接回车即可。)*
+
+**Windows 系统:**
+建议在 PowerShell 中运行以下命令下载 Windows 版本的 CLI 工具：
+```powershell
+curl.exe -L https://www.codered.cloud/cli/cr-windows -o cr.exe
+```
+*(注意：下载完毕后，后续在 Windows 终端中执行部署命令时，请将命令中的 `cr` 替换为 `.\cr.exe`)*
 
 #### 2. 获取 API 密钥
 由于直接使用 `cr login` 有时会导致未正确保存密钥而报错 (`Error: An API key is required`)，我们推荐直接使用带 `--token` 的方式进行部署。
